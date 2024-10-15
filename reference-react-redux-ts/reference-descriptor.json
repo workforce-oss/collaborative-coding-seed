@@ -1,0 +1,75 @@
+{
+    "name": "react-redux-typescript",
+    "description": "Create a React UI with Redux and Typescript",
+    "useCase": "Use this template to create a React UI with Redux and Typescript",
+    "promptPrefix": "You are an agent designed to write software on behalf of a developer. You use React, Redux, and Typescript to complete your projects. If you have a rest api, each resource is its own feature. You use the slice pattern to manage state. You are creative when it comes to user interface design and are comfortable writing css and tsx templates without prompting for more input.\nAlways output only code.  Do not create placeholders or examples.  Try to come up with the best answer you can to fill in details you don't know.  You are putting your output directly into an IDE, so you do not need to prepare it with ``` labels.  Always put the name of the file in a comment on the first line unless it is a json file.  Use the pattern // Path: <path>.",
+    "initScript": "npx create-react-app . --template typescript && npm install @reduxjs/toolkit react-redux @mui/material @emotion/react @emotion/styled @mui/x-date-pickers @mui/styled-engine-sc styled-components date-fns",
+    "files": {
+        "internal": [
+        {
+            "path": "package.json",
+            "purpose": "Manage dependencies and scripts",
+            "type": "package-json",
+            "prompt": "Create a package.json file.  Use the name of the project as the name of the package.  Use the version 1.0.0. This is a json file so do not put a comment with the name at the top.",
+            "sequence": 0
+        },
+        {
+            "path": "src/features/accounts/accountApi.ts",
+            "purpose": "Rest API Client",
+            "type": "api-client",
+            "prompt": "Create a restful api client to implement an openapi schema for a single resource. Use the fetch api to make the calls. Use the name of the resource with the suffix Api.  Example: Resource: Account, Api: AccountApi.",
+            "sequence": 1
+        },
+        {
+            "path": "src/features/accounts/accountSlice.ts",
+            "purpose": "Redux Slice",
+            "type": "redux-slice",
+            "prompt": "Create a redux slice to manage state for a resource. Use the name of the resource with the suffix State.  Example: Resource: Account, State: AccountState.",
+            "sequence": 2
+        },
+        {
+            "path": "src/app/store.ts",
+            "purpose": "Redux Store",
+            "type": "redux-store",
+            "prompt": "Create a generic store that imports all of the slices.",
+            "sequence": 3
+        },
+        {
+            "path": "src/app/hooks.ts",
+            "purpose": "Redux Hooks",
+            "type": "redux-hooks",
+            "prompt": "Create a simple redux hooks file.",
+            "sequence": 4
+        },
+        {
+            "path": "src/features/accounts/accountManager.ts",
+            "purpose": "Redux Manager",
+            "type": "redux-manager",
+            "prompt": "Create functions to manage and access the state of a resource. This is where we will mix the api client and the slice.",
+            "sequence": 5
+        },
+        {
+            "path": "src/features/accounts/AccountComponent.tsx",
+            "purpose": "React Component",
+            "type": "react-component",
+            "prompt": "Create a react component to interact with the resource. Use the name of the resource with the suffix Component.  Example: Resource: Account, Component: AccountComponent.  Use Material UI from the @mui/material package.  Use the @mui/materials/style packages for styling.  Use the model from the api client.  Use the manager to access the state.",
+            "sequence": 6
+        },
+        {
+            "path": "src/App.tsx",
+            "purpose": "React App Component",
+            "type": "react-app-component",
+            "prompt": "Create a react component for the app.  If the file already exists, it is okay to overwrite it.  Use Material UI from the @mui/material package.  Use the @mui/materials/style packages for styling. Add your feature components to the app.",
+            "sequence": 7
+        },
+        {
+            "path": "src/index.tsx",
+            "purpose": "React Entry Point",
+            "type": "react-entry-point",
+            "prompt": "Create an index.tsx file to bootstrap the react app.  Use Material UI from the @mui/material package.  Use the @mui/materials/style packages for styling.  Use the redux store to wrap the app. Make sure to import ReactDOM from react-dom/client.",
+            "sequence": 8
+        }
+    ],
+    "integration" : []
+    }
+}

@@ -1,0 +1,126 @@
+{
+  "name": "spring-boot-rest-api",
+  "description": "Used to create a Rest API using Spring Boot",
+  "useCase": "Use this pattern when you want to create a REST Api to solve complex problems",
+  "promptPrefix": "You are a Spring Boot developer. You are working with a framework that has the following package structure:\ncom.{group}.{project}.model.{model}\ncom.{group}.{project}.persistence.{entity}\ncom.{group}.{project}.repository.{repository}\ncom.{group}.{project}.mapper.{mapper}\ncom.{group}.{project}.service.{service}\ncom.{group}.{project}.controller.{controller}\ncom.{group}.{project}.exception.{exception}\nLombok is used to reduce boilerplate code.\nAlways output only code.  Do not create placeholders or examples.  Try to come up with the best answer you can to fill in details you don't know.  You are putting your output directly into an IDE, so you do not need to prepare it with ``` labels.",
+  "structuralNotes": "Each Model/Entity pair needs its own mapper. Ensure there are tests for all Service and Controller classes.",
+  "files": {
+    "internal": [
+      {
+        "path": "pom.xml",
+        "purpose": "Maven POM file",
+        "type": "pom",
+        "prompt": "Create a maven pom file for the project. Make sure to change the groupId and artifactId to match your project.  Do not simply enter placeholders.  Make use the information you have to fill everything in.",
+        "sequence": 0
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/Application.java",
+        "purpose": "Spring Boot Application Root Class",
+        "type": "root-application-class",
+        "prompt": "Create a Spring Boot Application Class for the project.",
+        "sequence": 1
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/model/Account.java",
+        "purpose": "Spring Boot Model Class",
+        "type": "model",
+        "prompt": "Create a Spring Boot Java Model class. Add validation annotations to the class and its fields.",
+        "sequence": 2
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/persistence/AccountEntity.java",
+        "purpose": "JPA Persistence Class",
+        "type": "jpa-entity",
+        "prompt": "Create a JPA Entity to use to manage the table schema.  It should use the same name as the model with the suffix Entity.  Example: Model: Account, Entity: AccountEntity.",
+        "sequence": 3
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/repository/AccountRepository.java",
+        "purpose": "Spring Boot Repository Class",
+        "type": "repository",
+        "prompt": "Create a Spring Boot Repository class.  It should use the same name as the model with the suffix Repository.  Example: Model: Account, Repository: AccountRepository.",
+        "sequence": 4
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/mapper/AccountMapper.java",
+        "purpose": "Mapstruct Mapper Class",
+        "type": "mapper",
+        "prompt": "Create a Mapstruct Mapper to map between the model and jpa entity.  It should use the same name as the model with the suffix Mapper.  Example: Model: Account, Mapper: AccountMapper.",
+        "sequence": 5
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/service/AccountService.java",
+        "purpose": "Spring Boot Service Class",
+        "type": "service",
+        "prompt": "Create a Spring Boot Service to manage the business logic.  It should use the same name as the model with the suffix Service.  Example: Model: Account, Service: AccountService.  Autowire the repository and mapstruct mapper.  Do not use the interface/impl pattern.  Include any business logic present in sequence diagrams, including integrations with other apis.",
+        "sequence": 6
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/controller/AccountController.java",
+        "purpose": "Spring Boot Controller Class",
+        "type": "controller",
+        "prompt": "Create a controller class.  Use the service and model classes to implement the controller.",
+        "sequence": 7
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/exception/AccountNotFoundException.java",
+        "purpose": "Spring Boot Exception Class",
+        "type": "exception",
+        "prompt": "Create a custom exception class.  It should use the same name as the model with the suffix Exception.  Example: Model: Account, Exception: AccountException.",
+        "sequence": 8
+      },
+      {
+        "path": "src/main/resources/application.yml",
+        "purpose": "Spring Boot Application Configuration",
+        "type": "application-configuration",
+        "prompt": "Create a Spring Boot application configuration file.  Configure the application to use an in-memory H2 database.  Do not put the name of the file at the top.  Output only yaml.",
+        "sequence": 9
+      },
+      {
+        "path": "src/test/java/com/testbed/accountapi/controller/AccountControllerTest.java",
+        "purpose": "Controller Test Class",
+        "type": "controller-test",
+        "prompt": "Create a unit test for the class.  Use Junit 5 with jupiter apis. When creating model objects, use the zero args constructor.",
+        "sequence": 10
+      },
+      {
+        "path": "src/test/java/com/testbed/accountapi/service/AccountServiceTest.java",
+        "purpose": "Service Test Class",
+        "type": "service-test",
+        "prompt": "Create a JUnit test for the service.  Load a full Spring Boot context so that we get the necessary beans. Use Junit 5 with jupiter apis.  Use DirtiesContext with BEFORE_EACH_TEST_METHOD to make sure the database is reset between each method. When creating model objects, use the zero args constructor.",
+        "sequence": 11
+      },
+      {
+        "path": "src/test/resources/application.yml",
+        "purpose": "Spring Boot Test Configuration",
+        "type": "test-configuration",
+        "prompt": "Create a Spring Boot test configuration file.  Configure the application to use an in-memory H2 database.    Do not put the name of the file at the top.  Output only yaml.",
+        "sequence": 12
+      }
+    ],
+    "integration": [
+      {
+        "path": "src/main/java/com/testbed/accountapi/integration/customerapi/Customer.java",
+        "purpose": "Spring Boot Model Class",
+        "type": "model",
+        "prompt": "Create a Spring Boot Java Model class. This model is for integration and does not need explicit validation rules.  You may need to create more than one of these.  There should be one for each component we need from the integration schema.",
+        "sequence": 0
+      },
+      {
+        "path": "src/main/java/com/testbed/accountapi/integration/customerapi/CustomerApiClient.java",
+        "purpose": "Open Feign Client Class",
+        "type": "feign-client",
+        "prompt": "Create a Feign Client to call the api.  Use the same name as the model with the suffix ApiClient.  Example: Model: Customer, ApiClient: CustomerApiClient.  Be sure to use the models built for this integration.  They should already exist in the project.",
+        "sequence": 1
+      },
+      {
+        "path": "src/test/java/com/testbed/accountapi/integration/customerapi/CustomerApiClientTest.java",
+        "purpose": "Feign Client Test Class",
+        "type": "feign-client-test",
+        "prompt": "Create a JUnit test for the feign client.  Load a full Spring Boot context so that we get the necessary beans. Use Junit 5 with jupiter apis.  When creating model objects, use the zero args constructor.",
+        "sequence": 2
+      }
+
+    ]
+  }
+}
